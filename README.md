@@ -1,4 +1,4 @@
-# Maintenance — WaspTracker (GitHub Pages)
+﻿# Maintenance — WaspTracker (GitHub Pages)
 
 Page de maintenance statique (HTML/CSS) pensée pour être utilisée comme cible d’une redirection **OVH 302**
 pendant des travaux sur un site principal (ex. Lovable).
