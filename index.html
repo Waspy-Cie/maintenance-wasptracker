@@ -249,6 +249,70 @@
       .pulse { animation: none; }
       a.btn { transition: none; }
     }
+  /* Download app section */
+  .download {
+    margin: 16px;
+    padding: 16px;
+    border-top: 1px solid var(--stroke);
+    text-align: center;
+  }
+
+  .download h3 {
+    margin: 0 0 12px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.75);
+  }
+
+  /* Store buttons container */
+  .stores {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Store buttons */
+  .store-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+    font-family: var(--sans);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .store-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(0,0,0,0.45);
+  }
+
+  .store-btn .small {
+    font-size: 11px;
+    opacity: 0.75;
+  }
+
+  .store-btn strong {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  /* Platform accents (subtil) */
+  .store-btn.google {
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .store-btn.apple {
+    border: 1px solid rgba(255,255,255,0.15);
+  }
   </style>
 </head>
 <body>
@@ -260,7 +324,7 @@
         <img src="assets/logo-mark.svg" alt="WaspTracker" width="42" height="42" />
         <div class="brand">
           <b>WaspTracker</b>
-          <span>Coordonner le terrain, protéger la biodiversité</span>
+          <span>LA PLATEFORME DE LUTTE COLLECTIVE CONTRE LE FRELON ASIATIQUE !</span>
         </div>
         <div class="badge">MAINTENANCE</div>
       </div>
@@ -268,7 +332,7 @@
       <div class="content">
         <h1>Travaux en cours 🛠️</h1>
         <p>
-          Nous faisons une mise à jour de la plateforme. Les services (site / app / portail) peuvent être temporairement indisponibles.
+          Nous faisons une mise à jour de la plateforme. Les deux services (WaspTracker-Admin et WaspTracker Mobile) peuvent être temporairement indisponibles.
           Merci pour ta patience.
         </p>
 
@@ -279,7 +343,7 @@
               <span class="dot" aria-hidden="true"></span>
               <div>
                 <strong>Intervention technique</strong><br />
-                <em>Retour estimé : bientôt</em>
+                <em>Retour estimé ? Bientôt</em>
               </div>
             </div>
           </div>
@@ -297,12 +361,12 @@
         </div>
 
         <div class="cta">
-          <a class="btn primary" href="mailto:contact@wasptracker.com?subject=Maintenance%20WaspTracker">
-            ✉️ Contacter l’équipe
+          <a class="btn primary" href="mailto:contact@waspy.life?subject=Maintenance%20WaspTracker">
+            ✉️ Contacter l’équipe !
           </a>
-          <a class="btn" href="#" onclick="alert('Optionnel : remplace ce lien par une page de statut ou un post (X/LinkedIn).'); return false;">
+          <!-- <a class="btn" href="#" onclick="alert('Optionnel : remplace ce lien par une page de statut ou un post (X/LinkedIn).'); return false;">
             📡 Voir le statut
-          </a>
+          </a> -->
         </div>
       </div>
 
@@ -315,7 +379,7 @@
     <aside class="card aside">
       <div class="header">
         <div class="brand">
-          <b>Mode terrain</b>
+          <b>Mode terrain avec WaspTracker - Mobile</b>
           <span>Localisation • signalements • suivi</span>
         </div>
       </div>
@@ -332,6 +396,34 @@
           </div>
         </div>
       </div>
+    <!-- Download section -->
+    <div class="download">
+      <h3>📲 Téléchargez l’application</h3>
+
+      <div class="stores">
+        <a
+          class="store-btn google"
+          href="https://play.google.com/store/apps/details?id=com.waspy.wasptracker"
+          target="_blank"
+          rel="noopener"
+          aria-label="Télécharger WaspTracker sur Google Play"
+        >
+          <span class="small">Télécharger sur</span>
+          <strong>Google Play</strong>
+        </a>
+
+        <a
+          class="store-btn apple"
+          href="https://apps.apple.com/app/wasptracker"
+          target="_blank"
+          rel="noopener"
+          aria-label="Télécharger WaspTracker sur l’App Store"
+        >
+          <span class="small">Télécharger sur</span>
+          <strong>App Store</strong>
+        </a>
+      </div>
+    </div>      
     </aside>
   </main>
 
@@ -340,3 +432,4 @@
   </script>
 </body>
 </html>
+
