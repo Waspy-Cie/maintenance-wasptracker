@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WaspTracker — Maintenance</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="color-scheme" content="dark light" />
+
+  <meta property="og:title" content="WaspTracker — Maintenance" />
+  <meta property="og:description" content="Travaux en cours. Retour imminent." />
+
+  <style>
+    :root {
+      --ink: #0b1220;
+      --slate: #111a2e;
+      --panel: rgba(255,255,255,0.06);
+      --stroke: rgba(255,255,255,0.12);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.72);
+      --yellow: #f7c948;
+      --yellow2:#ffdf6e;
+      --ok: #2dd4bf;
+      --shadow: 0 18px 50px rgba(0,0,0,0.45);
+      --radius: 20px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(1000px 700px at 20% 10%, rgba(247,201,72,0.20), transparent 55%),
+        radial-gradient(900px 650px at 85% 35%, rgba(45,212,191,0.10), transparent 60%),
+        radial-gradient(900px 700px at 50% 90%, rgba(255,223,110,0.08), transparent 55%),
+        linear-gradient(180deg, var(--ink), var(--slate));
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 28px 18px;
+      overflow-x: hidden;
+    }
+
+    .bg {
+      position: fixed;
+      inset: -120px;
+      pointer-events: none;
+      opacity: 0.16;
+      background: url("assets/hornet-bg.svg") center/680px 680px repeat;
+      transform: rotate(-10deg);
+    }
+
+    .wrap {
+      width: min(980px, 100%);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 880px) { .wrap { grid-template-columns: 1fr; } }
+
+    .card {
+      border: 1px solid var(--stroke);
+      background: var(--panel);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(247,201,72,0.16), transparent 45%, rgba(45,212,191,0.10));
+      pointer-events: none;
+    }
+
+    .header {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      padding: 20px 22px 10px;
+      position: relative;
+    }
+
+    .brand { display: flex; flex-direction: column; line-height: 1.05; }
+    .brand b { font-size: 18px; letter-spacing: 0.3px; }
+    .brand span { color: var(--muted); font-size: 13px; }
+
+    .badge {
+      margin-left: auto;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: rgba(0,0,0,0.85);
+      background: linear-gradient(90deg, var(--yellow), var(--yellow2));
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.18);
+      white-space: nowrap;
+    }
+
+    .content { padding: 8px 22px 22px; position: relative; }
+
+    h1 {
+      margin: 6px 0 10px;
+      font-size: clamp(26px, 3.2vw, 38px);
+      letter-spacing: -0.6px;
+    }
+
+    p { margin: 0 0 14px; color: var(--muted); font-size: 15.5px; line-height: 1.55; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    @media (max-width: 540px) { .grid { grid-template-columns: 1fr; } }
+
+    .panel {
+      border: 1px solid var(--stroke);
+      border-radius: 16px;
+      padding: 14px 14px;
+      background: rgba(0,0,0,0.14);
+    }
+
+    .panel h3 {
+      margin: 0 0 6px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.78);
+    }
+
+    .kpi { display: flex; gap: 10px; align-items: baseline; font-family: var(--mono); }
+
+    .dot {
+      width: 10px; height: 10px; border-radius: 999px;
+      background: var(--yellow);
+      box-shadow: 0 0 0 6px rgba(247,201,72,0.18);
+      margin-top: 3px;
+      flex: 0 0 auto;
+    }
+
+    .kpi strong { font-size: 13px; }
+    .kpi em { font-style: normal; color: var(--muted); font-size: 12px; }
+
+    .cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+
+    a.btn {
+      display: inline-flex; gap: 10px; align-items: center;
+      padding: 11px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      text-decoration: none;
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+      transition: transform 0.12s ease, background 0.12s ease;
+      font-weight: 600;
+    }
+
+    a.btn:hover { transform: translateY(-1px); background: rgba(255,255,255,0.10); }
+
+    a.btn.primary {
+      background: linear-gradient(90deg, var(--yellow), var(--yellow2));
+      color: rgba(0,0,0,0.88);
+      border-color: rgba(0,0,0,0.18);
+    }
+
+    .aside { display: grid; grid-template-rows: auto 1fr; }
+
+    .map { padding: 18px; }
+
+    .mapbox {
+      border: 1px solid var(--stroke);
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(0,0,0,0.18);
+      position: relative;
+      min-height: 280px;
+    }
+
+    .mapbox::before {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(900px 420px at 40% 30%, rgba(247,201,72,0.18), transparent 55%),
+        radial-gradient(800px 420px at 70% 60%, rgba(45,212,191,0.10), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0));
+      pointer-events: none;
+    }
+
+    .gridlines {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 42px 42px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .pin {
+      position: absolute;
+      left: 62%; top: 40%;
+      transform: translate(-50%, -100%);
+      width: 56px; height: 56px;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,0.45));
+    }
+    .pin svg { width: 100%; height: 100%; }
+
+    .pulse {
+      position: absolute;
+      left: 62%; top: 40%;
+      width: 18px; height: 18px;
+      background: rgba(247,201,72,0.9);
+      border-radius: 999px;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 0 0 rgba(247,201,72,0.35);
+      animation: pulse 1.7s ease-out infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(247,201,72,0.32); }
+      100% { box-shadow: 0 0 0 22px rgba(247,201,72,0.0); }
+    }
+
+    footer {
+      padding: 12px 18px 18px;
+      color: rgba(255,255,255,0.55);
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tiny { font-family: var(--mono); opacity: 0.9; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pulse { animation: none; }
+      a.btn { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+
+  <main class="wrap" role="main">
+    <section class="card">
+      <div class="header">
+        <img src="assets/logo-mark.svg" alt="WaspTracker" width="42" height="42" />
+        <div class="brand">
+          <b>WaspTracker</b>
+          <span>Coordonner le terrain, protéger la biodiversité</span>
+        </div>
+        <div class="badge">MAINTENANCE</div>
+      </div>
+
+      <div class="content">
+        <h1>Travaux en cours 🛠️</h1>
+        <p>
+          Nous faisons une mise à jour de la plateforme. Les services (site / app / portail) peuvent être temporairement indisponibles.
+          Merci pour ta patience.
+        </p>
+
+        <div class="grid">
+          <div class="panel">
+            <h3>Statut</h3>
+            <div class="kpi">
+              <span class="dot" aria-hidden="true"></span>
+              <div>
+                <strong>Intervention technique</strong><br />
+                <em>Retour estimé : bientôt</em>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Besoin d’aide ?</h3>
+            <div class="kpi">
+              <span class="dot" aria-hidden="true"></span>
+              <div>
+                <strong>Contact</strong><br />
+                <em>Une réponse dès que possible</em>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cta">
+          <a class="btn primary" href="mailto:contact@wasptracker.com?subject=Maintenance%20WaspTracker">
+            ✉️ Contacter l’équipe
+          </a>
+          <a class="btn" href="#" onclick="alert('Optionnel : remplace ce lien par une page de statut ou un post (X/LinkedIn).'); return false;">
+            📡 Voir le statut
+          </a>
+        </div>
+      </div>
+
+      <footer>
+        <span>© <span id="y"></span> WaspTracker</span>
+        <span class="tiny">noindex • redirection temporaire 302 recommandée</span>
+      </footer>
+    </section>
+
+    <aside class="card aside">
+      <div class="header">
+        <div class="brand">
+          <b>Mode terrain</b>
+          <span>Localisation • signalements • suivi</span>
+        </div>
+      </div>
+      <div class="map">
+        <div class="mapbox" aria-label="Illustration cartographique">
+          <div class="gridlines" aria-hidden="true"></div>
+          <div class="pulse" aria-hidden="true"></div>
+          <div class="pin" aria-hidden="true">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M32 60s18-17.2 18-32A18 18 0 1 0 14 28c0 14.8 18 32 18 32Z" fill="#F7C948"/>
+              <circle cx="32" cy="28" r="7" fill="#0B1220" opacity="0.9"/>
+              <path d="M23 28c3.2-5.4 14.8-5.4 18 0" stroke="#0B1220" stroke-width="2" opacity="0.55"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
